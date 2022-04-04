@@ -5,7 +5,7 @@ class ProductosApi {
     }
 
     listar(id) {
-       return this.productos.find(item => item.id === id);
+        return this.productos.find(item => item.id === id);
     }
 
     listarAll() {
@@ -13,15 +13,24 @@ class ProductosApi {
     }
 
     guardar(prod) {
-        this.productos.push(prod);
+        const nuevoId = this.productos.length + 1;
+        const nuevoProducto = {...prod, id : nuevoId};
+        this.productos.push(nuevoProducto);
+        return nuevoProducto;
     }
 
     actualizar(prod, id) {
-        
+        const producto = this.listar(id)
+        producto.title = prod.title;
+        producto.price = parseFloat(prod.price);
+        producto.thumbnail = prod.thumbnail;
+
+        return producto;
     }
 
     borrar(id) {
-        
+        this.productos = this.productos.filter(element => element.id !== id);
+        return this.productos;
     }
 }
 
